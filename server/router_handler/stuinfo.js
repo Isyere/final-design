@@ -98,3 +98,13 @@ exports.infoChange = (req, res) => {
     return res.cc(message, 0)
   }
 }
+
+exports.imageStorage = (req, res) => {
+  const url = req.body.imageUrl
+  console.log(req.body);
+  const sql = `update stuinfo set stu_pic = ? where stu_id = ?`
+  connection.query(sql, [url, req.user.username], (err, results) => {
+    if (err) return res.cc(err)
+    res.cc('头像修改成功！', 0)
+  })
+}

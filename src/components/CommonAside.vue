@@ -42,7 +42,7 @@ export default {
         },
         {
           path: '/main/stuEleDoc',
-          label: '学生电子文档',
+          label: '学生电子档案',
           name: 'stuEleDoc',
           icon: 's-custom'
         },

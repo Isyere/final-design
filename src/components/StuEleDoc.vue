@@ -7,7 +7,7 @@
         <el-col :span="24">
           <div class="bg-purple stuInfo">
             <!-- <img :src="stuinfo.stu_pic" /> -->
-            <img src="../pic/user.jpeg" />
+            <img :src="stuinfo.stu_pic" :onerror="defaultImg" />
             <div>姓名：{{ stuinfo.stu_name }}</div>
             <div>学号：{{ stuinfo.stu_id }}</div>
             <div>班级：{{ stuinfo.stu_class }}</div>
@@ -133,12 +133,16 @@ export default {
           }
         })
         .then((res) => {
-          console.log(res.data.data)
           this.stuinfo = res.data.data[0]
         })
         .catch((err) => {
           console.log(err)
         })
+    }
+  },
+  computed: {
+    defaultImg() {
+      return 'this.src="' + require('../pic/user.jpeg') + '"'
     }
   }
 }

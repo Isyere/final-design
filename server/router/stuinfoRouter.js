@@ -9,4 +9,6 @@ router.get('/stuEcharts', router_handler_stuinfo.stuEcharts)
 
 router.post('/infoChange', router_handler_stuinfo.infoChange)
 
+router.post('/imageStorage', router_handler_stuinfo.imageStorage)
+
 module.exports = router

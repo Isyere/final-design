@@ -2,21 +2,19 @@
   <div class="infoChangeBox">
     <h2>个人信息修改</h2>
     <el-row :gutter="20">
-      <el-col :span="7">
+      <el-col :span="21">
         <div class="grid-content">
-          <span>
-            头像上传：
-            <el-upload
-              class="avatar-uploader"
-              action="http://127.0.0.1:8080/stu/infoChange"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-            >
-              <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
-          </span>
+          头像上传：
+          <el-upload
+            class="avatar-uploader"
+            action="http://127.0.0.1:8080/api/uploading"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload"
+          >
+            <img v-if="picUrl.imageUrl" :src="picUrl.imageUrl" class="avatar" />
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
         </div>
       </el-col>
     </el-row>
@@ -124,7 +122,9 @@
 export default {
   data() {
     return {
-      imageUrl: '',
+      picUrl: {
+        imageUrl: ''
+      },
       stuData: {
         stu_name: '',
         stu_class: '',
@@ -220,7 +220,20 @@ export default {
         })
     },
     handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw)
+      this.picUrl.imageUrl = res.url
+      this.axios
+        .post('http://127.0.0.1:8080/stu/imageStorage', this.picUrl, {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+            Authorization: window.localStorage.getItem('token')
+          }
+        })
+        .then((res) => {
+          this.$message({
+            type: res.data.status ? 'error' : 'success',
+            message: res.data.message
+          })
+        })
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg'
@@ -260,16 +273,6 @@ export default {
 }
 .el-input {
   width: 200px;
-}
-.avatar-uploader .el-upload {
-  border: 1px solid #000000;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #000000;
 }
 .avatar-uploader-icon {
   font-size: 28px;

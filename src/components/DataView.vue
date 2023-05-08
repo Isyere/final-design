@@ -10,7 +10,6 @@
     </el-row>
   </div>
 </template>
- 
 <script>
 export default {
   data() {
@@ -169,6 +168,6 @@ export default {
   width: 90%;
   position: relative;
   top: 50px;
-  left: 50px;
+  left: 80px;
 }
 </style>

@@ -19,7 +19,16 @@ const expressJWT = require('express-jwt')
 
 app.use(cors())
 
-let objMulter = multer({ dest: "./public/upload" });
+let objMulter = multer({
+  dest: "./public/upload",
+  fileFilter(req, file, callback) {
+    // 解决中文名乱码的问题
+    file.originalname = Buffer.from(file.originalname, "latin1").toString(
+      "utf8"
+    );
+    callback(null, true);
+  }
+});
 //实例化multer，传递的参数对象，dest表示上传文件的存储路径
 app.use(objMulter.any())//any表示任意类型的文件
 // app.use(objMulter.image())//仅允许上传图片类型

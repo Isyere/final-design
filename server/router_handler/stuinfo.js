@@ -50,7 +50,7 @@ exports.stuEcharts = (req, res) => {
 exports.infoChange = (req, res) => {
   const newinfo = req.body
   var message = ''
-  if (newinfo.stu_name || newinfo.stu_class || newinfo.stu_college) {
+  if (newinfo.stu_name || newinfo.stu_class || newinfo.stu_college || newinfo.gpa) {
     if (newinfo.stu_name) {
       // 执行mysql插入
       const sql = `update stuinfo set stu_name = ? where stu_id = ?`
@@ -79,29 +79,44 @@ exports.infoChange = (req, res) => {
       })
       message += ' 学院修改成功！'
     }
+    if (newinfo.gpa) {
+      const sql = `update stuinfo set gpa = ? where stu_id = ? and year = 5`
+      connection.query(sql, [newinfo.gpa, req.user.username], (err, results) => {
+        if (err) {
+          return res.cc(err)
+        }
+      })
+      message += ' 平均绩点修改成功！'
+    }
   }
   if (newinfo.keyKind !== '' || newinfo.keyTerm !== '' || newinfo.keyValue !== '') {
 
     if (newinfo.keyKind === '' || newinfo.keyTerm === '' || newinfo.keyValue === '') {
       // 报错
-      message += ' 证明添加失败！'
+      message += ' 证明申请提交失败！'
       return res.cc(message)
     }
-    const sql = `update stuinfo set ${newinfo.keyKind} = ? where stu_id = ? and year = ?`
-    connection.query(sql, [newinfo.keyValue, req.user.username, newinfo.keyTerm], (err, results) => {
+    // const sql = `update stuinfo set ${newinfo.keyKind} = ? where stu_id = ? and year = ?`
+    // connection.query(sql, [newinfo.keyValue, req.user.username, newinfo.keyTerm], (err, results) => {
+    //   if (err) {
+    //     return res.cc(err)
+    //   }
+    // })
+    const sql = `insert into tinfo set ?`
+    connection.query(sql, { stu_id: req.user.username, class: req.user.stu_class, key: newinfo.keyKind, year: newinfo.keyTerm, content: newinfo.keyValue }, (err, results) => {
       if (err) {
         return res.cc(err)
       }
-
     })
-    message += ' 证明添加成功！'
+    message += ' 证明申请提交成功！'
+    console.log(message);
     return res.cc(message, 0)
   }
+  res.cc(message, 0)
 }
 
 exports.imageStorage = (req, res) => {
   const url = req.body.imageUrl
-  console.log(req.body);
   const sql = `update stuinfo set stu_pic = ? where stu_id = ?`
   connection.query(sql, [url, req.user.username], (err, results) => {
     if (err) return res.cc(err)

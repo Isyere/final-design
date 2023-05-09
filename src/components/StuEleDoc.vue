@@ -6,11 +6,11 @@
       <el-row :gutter="0">
         <el-col :span="24">
           <div class="bg-purple stuInfo">
-            <!-- <img :src="stuinfo.stu_pic" /> -->
             <img :src="stuinfo.stu_pic" :onerror="defaultImg" />
             <div>姓名：{{ stuinfo.stu_name }}</div>
             <div>学号：{{ stuinfo.stu_id }}</div>
             <div>班级：{{ stuinfo.stu_class }}</div>
+            <div class="redcolor">综合评分：{{ average | numFilter }}</div>
           </div>
         </el-col>
       </el-row>
@@ -117,7 +117,8 @@ export default {
   data() {
     return {
       name: 'stuEleDoc',
-      stuinfo: {}
+      stuinfo: {},
+      average: ''
     }
   },
   created() {
@@ -134,6 +135,20 @@ export default {
         })
         .then((res) => {
           this.stuinfo = res.data.data[0]
+          this.average =
+            (this.stuinfo.key_one +
+              this.stuinfo.key_two +
+              this.stuinfo.key_three +
+              this.stuinfo.key_four +
+              this.stuinfo.key_five +
+              this.stuinfo.key_six +
+              this.stuinfo.key_seven +
+              this.stuinfo.key_eight +
+              this.stuinfo.key_nine +
+              this.stuinfo.key_ten +
+              this.stuinfo.key_eleven +
+              this.stuinfo.key_twelve) /
+            12
         })
         .catch((err) => {
           console.log(err)
@@ -143,6 +158,13 @@ export default {
   computed: {
     defaultImg() {
       return 'this.src="' + require('../pic/user.jpeg') + '"'
+    }
+  },
+  filters: {
+    numFilter(value) {
+      // 截取当前数据到小数点后两位
+      let realVal = parseFloat(value).toFixed(2)
+      return realVal
     }
   }
 }
@@ -214,6 +236,9 @@ export default {
     font-size: 20px;
     border-radius: 25px;
     text-align: center;
+  }
+  .redcolor {
+    color: red;
   }
 }
 </style>

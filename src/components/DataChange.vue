@@ -8,6 +8,7 @@
           <el-upload
             class="avatar-uploader"
             action="http://127.0.0.1:8080/api/uploading"
+            accept=".jpg, .jpeg, .JPG, .JPEG "
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
@@ -57,6 +58,19 @@
         </div>
       </el-col>
     </el-row>
+    <el-row :gutter="20">
+      <el-col :span="7">
+        <div class="grid-content">
+          绩点：
+          <el-input
+            placeholder="请输入平均绩点"
+            v-model="stuData.gpa"
+            clearable
+          >
+          </el-input>
+        </div>
+      </el-col>
+    </el-row>
     <hr />
     <h2>证明添加</h2>
     <el-row :gutter="20">
@@ -97,15 +111,23 @@
             </el-option>
           </el-select></div
       ></el-col>
+
       <el-col :span="8">
         <div class="grid-content">
-          内容:
-          <el-input
-            placeholder="请输入内容"
-            v-model="stuData.keyValue"
-            clearable
+          <el-upload
+            class="upload-demo"
+            action="http://127.0.0.1:8080/api/uploading"
+            :on-preview="handlePreview"
+            :on-remove="handleRemove"
+            :before-remove="beforeRemove"
+            multiple
+            :limit="1"
+            :on-exceed="handleExceed"
+            :file-list="fileList"
+            :on-success="contentUploadsuccess"
           >
-          </el-input>
+            <el-button size="small" type="primary">点击添加附件</el-button>
+          </el-upload>
         </div>
       </el-col>
       <el-col :span="2">
@@ -122,6 +144,7 @@
 export default {
   data() {
     return {
+      fileList: [],
       picUrl: {
         imageUrl: ''
       },
@@ -131,7 +154,8 @@ export default {
         stu_college: '',
         keyKind: '',
         keyTerm: '',
-        keyValue: ''
+        keyValue: '',
+        gpa: ''
       },
       year: [
         {
@@ -246,6 +270,34 @@ export default {
         this.$message.error('上传头像图片大小不能超过 2MB!')
       }
       return isJPG && isLt2M
+    },
+    handleRemove(file, fileList) {
+      this.fileList = fileList
+      this.stuData.keyValue = ''
+    },
+    handlePreview(file) {
+      window.open(this.fileList[0].url)
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(
+        `当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${
+          files.length + fileList.length
+        } 个文件`
+      )
+    },
+    beforeRemove(file, fileList) {
+      return this.$confirm(`确定移除 ${file.name}？`, '提示', {
+        cancelButtonText: '取消',
+        confirmButtonText: '确定',
+        type: 'warning'
+      })
+    },
+    contentUploadsuccess(res, file) {
+      this.fileList.push({
+        name: res.name,
+        url: res.url
+      })
+      this.stuData.keyValue = res.url
     }
   }
 }
@@ -267,7 +319,7 @@ export default {
 }
 .infoChangeBox {
   position: relative;
-  top: 10%;
+  top: 5%;
   left: 20%;
   width: 60%;
 }

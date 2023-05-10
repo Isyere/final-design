@@ -272,12 +272,22 @@ export default {
         key_twelve: ''
       },
       rules: {
-        username: [{ required: true, message: '请输入姓名' }],
-        t_name: [{ required: true, message: '请输入用户名' }],
-        t_password: [{ required: true, message: '请输入密码' }],
-        manageclassmin: [{ required: true, message: '请输入最小属班' }],
-        manageclassmax: [{ required: true, message: '请输入最大属班' }],
-        sex: [{ required: true, message: '请选性别' }]
+        stu_name: [{ required: true, message: '请输入姓名' }],
+        stu_class: [{ required: true, message: '请输入班级' }],
+        stu_college: [{ required: true, message: '请输入学院' }],
+        gpa: [{ required: true, message: '请输入最小属班' }],
+        key_one: [{ required: true, message: '请输入分值' }],
+        key_two: [{ required: true, message: '请输入分值' }],
+        key_three: [{ required: true, message: '请输入分值' }],
+        key_four: [{ required: true, message: '请输入分值' }],
+        key_five: [{ required: true, message: '请输入分值' }],
+        key_six: [{ required: true, message: '请输入分值' }],
+        key_seven: [{ required: true, message: '请输入分值' }],
+        key_eight: [{ required: true, message: '请输入分值' }],
+        key_nine: [{ required: true, message: '请输入分值' }],
+        key_ten: [{ required: true, message: '请输入分值' }],
+        key_eleven: [{ required: true, message: '请输入分值' }],
+        key_twelve: [{ required: true, message: '请输入分值' }]
       },
       tableData: [],
       total: 0, //当前总条数
@@ -340,7 +350,7 @@ export default {
             })
         }
         //关闭弹窗
-        this.$refs.form.resetFields()
+        this.$refs['form'].resetFields()
         this.dialogVisible = false
       })
     },

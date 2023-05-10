@@ -278,7 +278,7 @@ export default {
     },
     //弹窗关闭触发
     handleClose() {
-      this.$refs.form.resetFields()
+      this.$refs['form'].resetFields()
       this.dialogVisible = false
     },
     cancel() {

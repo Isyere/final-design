@@ -163,7 +163,6 @@ exports.getInfoData = (req, res) => {
 }
 exports.editInfoData = (req, res) => {
   const edit = req.body
-  console.log(edit);
   const sql = `update stuinfo set ? where stu_id = ? and year = ?`
   connection.query(sql, [{
     stu_name: edit.stu_name,

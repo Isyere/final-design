@@ -11,7 +11,7 @@
                 autocomplete="off"
                 v-model="loginForm.username"
                 prefix-icon="el-icon-user-solid"
-                placeholder="请输入学号"
+                placeholder="请输入账号"
                 clearable
               ></el-input>
             </el-form-item>
@@ -48,7 +48,7 @@ export default {
     // 定义表单规则
     var validateAccount = (rule, value, callback) => {
       if (value === '') {
-        return callback(new Error('学号不能为空'))
+        return callback(new Error('账号不能为空'))
       } else {
         callback()
       }
@@ -87,23 +87,62 @@ export default {
     goToLogin() {
       this.$refs['loginForm'].validate((valid) => {
         if (valid) {
-          this.axios
-            .post('http://127.0.0.1:8080/api/login', this.loginForm, {
-              headers: {
-                'Content-Type':
-                  'application/x-www-form-urlencoded;charset=utf-8'
-              }
-            })
-            .then((res) => {
-              this.$message({
-                type: res.data.status ? 'error' : 'success',
-                message: res.data.message
+          if (this.loginForm.username === 'admin') {
+            this.axios
+              .post('http://127.0.0.1:8080/api/alogin', this.loginForm, {
+                headers: {
+                  'Content-Type':
+                    'application/x-www-form-urlencoded;charset=utf-8'
+                }
               })
-              if (!res.data.status) {
-                window.localStorage.setItem('token', res.data.token)
-                this.$router.push('/main')
-              }
-            })
+              .then((res) => {
+                this.$message({
+                  type: res.data.status ? 'error' : 'success',
+                  message: res.data.message
+                })
+                if (!res.data.status) {
+                  window.localStorage.setItem('token', res.data.token)
+                  this.$router.push('/amain')
+                }
+              })
+          } else if (this.loginForm.username < 50000001) {
+            this.axios
+              .post('http://127.0.0.1:8080/api/login', this.loginForm, {
+                headers: {
+                  'Content-Type':
+                    'application/x-www-form-urlencoded;charset=utf-8'
+                }
+              })
+              .then((res) => {
+                this.$message({
+                  type: res.data.status ? 'error' : 'success',
+                  message: res.data.message
+                })
+                if (!res.data.status) {
+                  window.localStorage.setItem('token', res.data.token)
+                  this.$router.push('/main')
+                }
+              })
+          } else {
+            this.axios
+              .post('http://127.0.0.1:8080/api/tLogin', this.loginForm, {
+                headers: {
+                  'Content-Type':
+                    'application/x-www-form-urlencoded;charset=utf-8'
+                }
+              })
+              .then((res) => {
+                console.log(res)
+                this.$message({
+                  type: res.data.status ? 'error' : 'success',
+                  message: res.data.message
+                })
+                if (!res.data.status) {
+                  window.localStorage.setItem('token', res.data.token)
+                  this.$router.push('/tmain')
+                }
+              })
+          }
         } else {
           this.$message.error('登陆失败')
           return false

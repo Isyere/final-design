@@ -2,12 +2,6 @@ export default {
   state: {
     isCollapse: false, //控制菜单的展开还是收起
     tabsList: [
-      {
-        path: '/main/home',
-        label: '评价标准',
-        name: 'home',
-        icon: 's-home'
-      }
     ]//面包屑数据
   },
   mutations: {
@@ -17,18 +11,18 @@ export default {
     },
     //更新面包屑数据
     selectMenu(state, val) {
-      //判断添加的数据是否为首页
-      if (val.name !== 'home') {
-        const index = state.tabsList.findIndex(item => item.name === val.name)
-        if (index === -1) {
-          state.tabsList.push(val)
-        }
+      const index = state.tabsList.findIndex(item => item.name === val.name)
+      if (index === -1) {
+        state.tabsList.push(val)
       }
     },
     //删除指定的tag数据
     closeTag(state, item) {
       const index = state.tabsList.findIndex(val => val.name === item.name)
       state.tabsList.splice(index, 1)
+    },
+    closeTagAll(state) {
+      state.tabsList = []
     }
   }
 }

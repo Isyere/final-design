@@ -31,7 +31,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -42,10 +42,12 @@ export default {
     this.getData()
   },
   methods: {
+    ...mapMutations(['closeTagAll']),
     handleMenu() {
       this.$store.commit('collapseMenu')
     },
     handleCommand(path) {
+      this.closeTagAll()
       window.localStorage.removeItem('token')
       this.$router.push(path)
     },

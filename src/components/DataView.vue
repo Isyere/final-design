@@ -136,7 +136,6 @@ export default {
               res.data.data[i].key_twelve
             ]
           }
-          console.log(this.option_column.series[1].data)
         })
         .catch((err) => {
           console.log(err)

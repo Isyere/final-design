@@ -5,7 +5,12 @@ import VueRouter from 'vue-router'
 import '@/assets/all.css'
 import Login from '@/views/Login.vue'
 import Main from '@/views/Main.vue'
+import tMain from '@/views/tMain.vue'
+import aMain from '@/views/aMain.vue'
 import Home from '@/components/Home.vue'
+import examine from '@/components/examine.vue'
+import stumanage from '@/components/stumanage.vue'
+import tmanage from '@/components/tmanage.vue'
 import StuEleDoc from '@/components/StuEleDoc.vue'
 import DataChange from '@/components/DataChange.vue'
 import DataView from '@/components/DataView.vue'
@@ -30,6 +35,25 @@ const routes = [
       { path: 'stuEleDoc', name: 'stuEleDoc', component: StuEleDoc },
       { path: 'dataChange', name: 'dataChange', component: DataChange },
       { path: 'dataView', name: 'dataView', component: DataView }
+    ]
+  },
+  {
+    path: '/tmain',
+    component: tMain,
+    children: [
+      //默认子路由
+      { path: '', component: examine },
+      { path: 'examine', name: 'examine', component: examine },
+    ]
+  },
+  {
+    path: '/amain',
+    component: aMain,
+    children: [
+      //默认子路由
+      { path: '', component: tmanage },
+      { path: 'tmanage', name: 'tmanage', component: tmanage },
+      { path: 'stumanage', name: 'stumanage', component: stumanage }
     ]
   }
 

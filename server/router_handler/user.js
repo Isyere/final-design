@@ -3,7 +3,13 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const config = require('../config')
 
+exports.tLogin = (req, res) => {
+  res.cc('tLogin', 0)
+}
 
+exports.aLogin = (req, res) => {
+  res.cc('aLogin', 0)
+}
 
 exports.login = (req, res) => {
   const userinfo = req.body

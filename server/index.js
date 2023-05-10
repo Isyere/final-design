@@ -55,9 +55,11 @@ app.use(expressJWT({ secret: config.jwtSecretKey, algorithms: ["HS256"], }).unle
 const userRouter = require('./router/userRouter')
 const stuinfoRouter = require('./router/stuinfoRouter')
 const uploadingRouter = require('./router/uploadingRouter')
+const tinfoRouter = require('./router/tinfoRouter')
 app.use('/api', userRouter)
 app.use('/stu', stuinfoRouter)
 app.use('/api', uploadingRouter)
+app.use('/t', tinfoRouter)
 
 const joi = require('joi')
 app.use(function (err, req, res, next) {

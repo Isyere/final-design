@@ -123,3 +123,69 @@ exports.imageStorage = (req, res) => {
     res.cc('头像修改成功！', 0)
   })
 }
+
+//new
+exports.getInfoData = (req, res) => {
+  const username = req.query.name
+  if (username) {
+    const sql2 = `select * from stuinfo where stu_name = ?`
+    connection.query(sql2, username, (err, search) => {
+      if (err) {
+        return res.cc(err)
+      }
+      res.send({
+        status: 0,
+        message: '获取学生信息成功！',
+        data: search,
+      })
+    })
+  } else {
+    const start = req.query.limit * (req.query.page - 1);
+    const sql = `select * from stuinfo limit ${start},${req.query.limit}`
+    connection.query(sql, (err, results) => {
+      if (err) {
+        return res.cc(err)
+      }
+      const sql1 = `select * from stuinfo`
+      connection.query(sql1, (err, final) => {
+        if (err) {
+          return res.cc(err)
+        }
+        res.send({
+          status: 0,
+          message: '获取学生信息成功！',
+          total: final.length,
+          data: results,
+        })
+      })
+    })
+  }
+}
+exports.editInfoData = (req, res) => {
+  const edit = req.body
+  console.log(edit);
+  const sql = `update stuinfo set ? where stu_id = ? and year = ?`
+  connection.query(sql, [{
+    stu_name: edit.stu_name,
+    stu_class: edit.stu_class,
+    stu_college: edit.stu_college,
+    gpa: edit.gpa,
+    key_one: edit.key_one,
+    key_two: edit.key_two,
+    key_three: edit.key_three,
+    key_four: edit.key_four,
+    key_five: edit.key_five,
+    key_six: edit.key_six,
+    key_seven: edit.key_seven,
+    key_eight: edit.key_eight,
+    key_nine: edit.key_nine,
+    key_ten: edit.key_ten,
+    key_eleven: edit.key_eleven,
+    key_twelve: edit.key_twelve
+  }, edit.stu_id, edit.year], (err, results) => {
+    if (err) {
+      return res.cc(err)
+    }
+    res.cc('信息修改成功！', 0)
+  })
+}

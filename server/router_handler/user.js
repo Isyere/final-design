@@ -4,11 +4,56 @@ const jwt = require('jsonwebtoken')
 const config = require('../config')
 
 exports.tLogin = (req, res) => {
-  res.cc('tLogin', 0)
+  const userinfo = req.body
+  const sql = `select * from taccount where t_name=?`
+  connection.query(sql, userinfo.username, function (err, results) {
+    // 执行 SQL 语句失败
+    if (err) return res.cc(err)
+    // 执行 SQL 语句成功，但是查询到数据条数不等于 1
+    if (results.length !== 1) return res.cc('登录失败！')
+    // 如果对比的结果等于 false, 则证明用户输入的密码错误
+    if (userinfo.password !== results[0].t_password) {
+      return res.cc('登录失败！')
+    }
+    const user = { ...results[0], password: '' }
+    // 生成 Token 字符串
+    const tokenStr = jwt.sign(user, config.jwtSecretKey, {
+      expiresIn: '10h', // token 有效期为 10 个小时
+    })
+    res.send({
+      status: 0,
+      message: '导员端登录成功！',
+      // 为了方便客户端使用 Token，在服务器端直接拼接上 Bearer 的前缀
+      token: 'Bearer ' + tokenStr,
+    })
+  })
 }
 
 exports.aLogin = (req, res) => {
-  res.cc('aLogin', 0)
+  const userinfo = req.body
+  const sql = `select * from superaccount where username=?`
+  connection.query(sql, userinfo.username, function (err, results) {
+    // 执行 SQL 语句失败
+    if (err) return res.cc(err)
+    // 执行 SQL 语句成功，但是查询到数据条数不等于 1
+    if (results.length !== 1) return res.cc('登录失败！')
+    // 如果对比的结果等于 false, 则证明用户输入的密码错误
+
+    if (userinfo.password !== results[0].password) {
+      return res.cc('登录失败！')
+    }
+    const user = { ...results[0], password: '' }
+    // 生成 Token 字符串
+    const tokenStr = jwt.sign(user, config.jwtSecretKey, {
+      expiresIn: '10h', // token 有效期为 10 个小时
+    })
+    res.send({
+      status: 0,
+      message: '超级管理员登录成功！',
+      // 为了方便客户端使用 Token，在服务器端直接拼接上 Bearer 的前缀
+      token: 'Bearer ' + tokenStr,
+    })
+  })
 }
 
 exports.login = (req, res) => {

@@ -101,7 +101,7 @@ export default {
                   message: res.data.message
                 })
                 if (!res.data.status) {
-                  window.localStorage.setItem('token', res.data.token)
+                  window.localStorage.setItem('admintoken', res.data.token)
                   this.$router.push('/amain')
                 }
               })
@@ -119,7 +119,7 @@ export default {
                   message: res.data.message
                 })
                 if (!res.data.status) {
-                  window.localStorage.setItem('token', res.data.token)
+                  window.localStorage.setItem('stutoken', res.data.token)
                   this.$router.push('/main')
                 }
               })
@@ -138,7 +138,7 @@ export default {
                   message: res.data.message
                 })
                 if (!res.data.status) {
-                  window.localStorage.setItem('token', res.data.token)
+                  window.localStorage.setItem('tToken', res.data.token)
                   this.$router.push('/tmain')
                 }
               })

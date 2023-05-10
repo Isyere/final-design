@@ -48,7 +48,9 @@ export default {
     },
     handleCommand(path) {
       this.closeTagAll()
-      window.localStorage.removeItem('token')
+      window.localStorage.removeItem('admintoken')
+      window.localStorage.removeItem('stutoken')
+      window.localStorage.removeItem('tToken')
       this.$router.push(path)
     },
     async getData() {
@@ -56,7 +58,7 @@ export default {
         .get('http://127.0.0.1:8080/stu/stuInfo', {
           headers: {
             //传入登录账号对应的token字段
-            Authorization: window.localStorage.getItem('token')
+            Authorization: window.localStorage.getItem('stutoken')
           }
         })
         .then((res) => {

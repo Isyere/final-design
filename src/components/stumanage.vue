@@ -318,7 +318,7 @@ export default {
         .get('http://127.0.0.1:8080/stu/getInfoData', {
           headers: {
             //传入登录账号对应的token字段
-            Authorization: window.localStorage.getItem('token'),
+            Authorization: window.localStorage.getItem('admintoken'),
             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
           },
           params: { ...this.pageData, ...this.userForm }

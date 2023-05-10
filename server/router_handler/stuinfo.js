@@ -3,18 +3,18 @@ const connection = require('../db_connection')
 exports.stuInfo = (req, res) => {
   const sql = `update stuinfo 
                set 
-                  key_one = (select max(key_one) from (select * from stuinfo ) as b),
-                  key_two = (select max(key_two) from (select * from stuinfo ) as b), 
-                  key_three = (select max(key_three) from (select * from stuinfo ) as b),  
-                  key_four = (select max(key_four) from (select * from stuinfo ) as b),  
-                  key_five = (select max(key_five) from (select * from stuinfo ) as b),  
-                  key_six = (select max(key_six) from (select * from stuinfo ) as b),  
-                  key_seven = (select max(key_seven) from (select * from stuinfo ) as b),  
-                  key_eight = (select max(key_eight) from (select * from stuinfo ) as b),  
-                  key_nine = (select max(key_nine) from (select * from stuinfo ) as b), 
-                  key_ten = (select max(key_ten) from (select * from stuinfo ) as b), 
-                  key_eleven = (select max(key_eleven) from (select * from stuinfo ) as b),  
-                  key_twelve = (select max(key_twelve) from (select * from stuinfo ) as b)  
+                  key_one = (select max(key_one) from (select * from stuinfo where stu_id = ${req.user.username} and year < 5) as b),
+                  key_two = (select max(key_two) from (select * from stuinfo where stu_id = ${req.user.username} and year < 5) as b), 
+                  key_three = (select max(key_three) from (select * from stuinfo where stu_id = ${req.user.username} and year < 5) as b),  
+                  key_four = (select max(key_four) from (select * from stuinfo where stu_id = ${req.user.username} and year < 5) as b),  
+                  key_five = (select max(key_five) from (select * from stuinfo where stu_id = ${req.user.username} and year < 5) as b),  
+                  key_six = (select max(key_six) from (select * from stuinfo where stu_id = ${req.user.username} and year < 5) as b),  
+                  key_seven = (select max(key_seven) from (select * from stuinfo where stu_id = ${req.user.username} and year < 5) as b),  
+                  key_eight = (select max(key_eight) from (select * from stuinfo where stu_id = ${req.user.username} and year < 5) as b),  
+                  key_nine = (select max(key_nine) from (select * from stuinfo where stu_id = ${req.user.username} and year < 5) as b), 
+                  key_ten = (select max(key_ten) from (select * from stuinfo where stu_id = ${req.user.username} and year < 5) as b), 
+                  key_eleven = (select max(key_eleven) from (select * from stuinfo where stu_id = ${req.user.username} and year < 5) as b),  
+                  key_twelve = (select max(key_twelve) from (select * from stuinfo where stu_id = ${req.user.username} and year < 5) as b)  
                where stu_id = ? and year = 5`
   connection.query(sql, req.user.username, (err, results) => {
     // 1. 执行 SQL 语句失败
@@ -96,21 +96,14 @@ exports.infoChange = (req, res) => {
       message += ' 证明申请提交失败！'
       return res.cc(message)
     }
-    // const sql = `update stuinfo set ${newinfo.keyKind} = ? where stu_id = ? and year = ?`
-    // connection.query(sql, [newinfo.keyValue, req.user.username, newinfo.keyTerm], (err, results) => {
-    //   if (err) {
-    //     return res.cc(err)
-    //   }
-    // })
+
     const sql = `insert into tinfo set ?`
-    connection.query(sql, { stu_id: req.user.username, class: req.user.stu_class, key: newinfo.keyKind, year: newinfo.keyTerm, content: newinfo.keyValue }, (err, results) => {
+    connection.query(sql, { stu_id: req.user.username, class: req.user.stu_class, keyKind: newinfo.keyKind, keyName: newinfo.keyName, year: newinfo.keyTerm, content: newinfo.keyValue }, (err, results) => {
       if (err) {
         return res.cc(err)
       }
     })
     message += ' 证明申请提交成功！'
-    console.log(message);
-    return res.cc(message, 0)
   }
   res.cc(message, 0)
 }
@@ -187,4 +180,114 @@ exports.editInfoData = (req, res) => {
     }
     res.cc('信息修改成功！', 0)
   })
+}
+
+exports.getExamine = (req, res) => {
+  const id = req.query.stu_id
+  if (id) {
+    const sql2 = `select * from tinfo where stu_id = ?`
+    connection.query(sql2, id, (err, search) => {
+      if (err) {
+        return res.cc(err)
+      }
+      res.send({
+        status: 0,
+        message: '获取申请信息成功！',
+        data: search,
+      })
+    })
+  } else {
+    const start = req.query.limit * (req.query.page - 1)
+    const sql = `select * from tinfo where class >= ? and class <= ? limit ${start},${req.query.limit}`
+    connection.query(sql, [req.user.manageclassmin, req.user.manageclassmax], (err, results) => {
+      if (err) {
+        return res.cc(err)
+      }
+      const sql1 = `select * from tinfo`
+      connection.query(sql1, (err, final) => {
+        if (err) {
+          return res.cc(err)
+        }
+        res.send({
+          status: 0,
+          message: '获取申请信息成功！',
+          total: final.length,
+          data: results,
+        })
+      })
+    })
+  }
+}
+
+exports.examineCheck = (req, res) => {
+  const keyName = req.query.keyName
+  if (keyName) {
+    const sql2 = `select * from examinecheck where keyName = ?`
+    connection.query(sql2, keyName, (err, search) => {
+      if (err) {
+        return res.cc(err)
+      }
+      res.send({
+        status: 0,
+        message: '查询申请信息成功！',
+        data: search,
+      })
+    })
+  } else {
+    const start = req.query.limit * (req.query.page - 1)
+    const sql = `select * from examinecheck where stu_id = ? limit ${start},${req.query.limit}`
+    connection.query(sql, req.user.username, (err, results) => {
+      if (err) {
+        return res.cc(err)
+      }
+      const sql1 = `select * from examinecheck`
+      connection.query(sql1, (err, final) => {
+        if (err) {
+          return res.cc(err)
+        }
+        res.send({
+          status: 0,
+          message: '查询申请状态成功！',
+          total: final.length,
+          data: results,
+        })
+      })
+    })
+  }
+}
+
+exports.examineRefuse = (req, res) => {
+  const sql = `insert into examinecheck set ?`
+  connection.query(sql, { stu_id: req.body.stu_id, class: req.body.class, keyName: req.body.keyName, keyKind: req.body.keyKind, year: req.body.year, content: req.body.content, status: '申请未通过' }, (err, results) => {
+    if (err) {
+      return res.cc(err)
+    }
+    const sql1 = `delete from tinfo where id = ?`
+    connection.query(sql1, req.body.id, (err, results) => {
+      res.send({
+        status: 0,
+        message: '申请拒绝操作成功！',
+        data: results,
+      })
+    })
+  })
+}
+
+exports.examineAgree = (req, res) => {
+
+  const sql = `update stuinfo set ${req.body.keyKind} = ${req.body.keyKind} + 25.0 where stu_id = ? and year = ?`
+  console.log(sql);
+  connection.query(sql, [req.body.username, req.body.keyTerm], (err, results) => {
+    if (err) {
+      return res.cc(err)
+    }
+    // const sql1 = `delete from tinfo where id = ?`
+    // connection.query(sql1, req.body.id, (err, results) => {
+    res.send({
+      status: 0,
+      message: '申请同意操作成功！',
+      data: results,
+    })
+  })
+  // })
 }

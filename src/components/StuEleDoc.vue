@@ -131,7 +131,7 @@ export default {
         .get('http://127.0.0.1:8080/stu/stuInfo', {
           headers: {
             //传入登录账号对应的token字段
-            Authorization: window.localStorage.getItem('token')
+            Authorization: window.localStorage.getItem('stutoken')
           }
         })
         .then((res) => {

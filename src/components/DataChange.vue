@@ -148,10 +148,25 @@ export default {
       picUrl: {
         imageUrl: ''
       },
+      toName: {
+        key_one: '学习态度与学习能力',
+        key_two: '多元文化与国际视野',
+        key_three: '规划执行与逻辑思辨',
+        key_four: '劳动观念与劳动技能',
+        key_five: '道德实践与家国情怀',
+        key_six: '身心素养与自我管理',
+        key_seven: '诚实守信与奉献精神',
+        key_eight: '艺术涵养与美感素养',
+        key_nine: '分析问题与系统思考',
+        key_ten: '人际关系与团队合作',
+        key_eleven: '创新实践与核心素养',
+        key_twelve: '工具使用与内涵建设'
+      },
       stuData: {
         stu_name: '',
         stu_class: '',
         stu_college: '',
+        keyName: '',
         keyKind: '',
         keyTerm: '',
         keyValue: '',
@@ -229,11 +244,13 @@ export default {
   },
   methods: {
     dataPost() {
+      const content = this.stuData.keyKind
+      this.stuData.keyName = this.toName[content]
       this.axios
         .post('http://127.0.0.1:8080/stu/infoChange', this.stuData, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-            Authorization: window.localStorage.getItem('token')
+            Authorization: window.localStorage.getItem('stutoken')
           }
         })
         .then((res) => {
@@ -249,7 +266,7 @@ export default {
         .post('http://127.0.0.1:8080/stu/imageStorage', this.picUrl, {
           headers: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
-            Authorization: window.localStorage.getItem('token')
+            Authorization: window.localStorage.getItem('stutoken')
           }
         })
         .then((res) => {

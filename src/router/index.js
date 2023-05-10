@@ -14,7 +14,7 @@ import tmanage from '@/components/tmanage.vue'
 import StuEleDoc from '@/components/StuEleDoc.vue'
 import DataChange from '@/components/DataChange.vue'
 import DataView from '@/components/DataView.vue'
-
+import examineCheck from '@/components/examineCheck.vue'
 Vue.use(VueRouter)
 
 const originalPush = VueRouter.prototype.push
@@ -34,7 +34,8 @@ const routes = [
       { path: 'home', name: 'home', component: Home },
       { path: 'stuEleDoc', name: 'stuEleDoc', component: StuEleDoc },
       { path: 'dataChange', name: 'dataChange', component: DataChange },
-      { path: 'dataView', name: 'dataView', component: DataView }
+      { path: 'dataView', name: 'dataView', component: DataView },
+      { path: 'examineCheck', name: 'examineCheck', component: examineCheck }
     ]
   },
   {

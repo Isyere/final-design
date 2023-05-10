@@ -190,7 +190,7 @@ export default {
             .post('http://127.0.0.1:8080/t/deleteTAccount', row, {
               headers: {
                 //传入登录账号对应的token字段
-                Authorization: window.localStorage.getItem('token'),
+                Authorization: window.localStorage.getItem('admintoken'),
                 'Content-Type':
                   'application/x-www-form-urlencoded;charset=utf-8'
               }
@@ -220,7 +220,7 @@ export default {
         .get('http://127.0.0.1:8080/t/getAccountData', {
           headers: {
             //传入登录账号对应的token字段
-            Authorization: window.localStorage.getItem('token'),
+            Authorization: window.localStorage.getItem('admintoken'),
             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
           },
           params: { ...this.pageData, ...this.userForm }
@@ -239,7 +239,7 @@ export default {
               .post('http://127.0.0.1:8080/t/newTAccount', this.form, {
                 headers: {
                   //传入登录账号对应的token字段
-                  Authorization: window.localStorage.getItem('token'),
+                  Authorization: window.localStorage.getItem('admintoken'),
                   'Content-Type':
                     'application/x-www-form-urlencoded;charset=utf-8'
                 }
@@ -252,12 +252,11 @@ export default {
                 this.dataGet()
               })
           } else {
-            console.log(2)
             this.axios
               .post('http://127.0.0.1:8080/t/editTAccount', this.form, {
                 headers: {
                   //传入登录账号对应的token字段
-                  Authorization: window.localStorage.getItem('token'),
+                  Authorization: window.localStorage.getItem('admintoken'),
                   'Content-Type':
                     'application/x-www-form-urlencoded;charset=utf-8'
                 }

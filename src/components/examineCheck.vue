@@ -6,8 +6,8 @@
         <el-form-item>
           <el-input
             clearable
-            placeholder="请输入学号"
-            v-model="userForm.stu_id"
+            placeholder="请输入申请项"
+            v-model="userForm.keyName"
           ></el-input>
         </el-form-item>
         <el-form-item>
@@ -23,10 +23,6 @@
         style="width: 90%"
         class="tableBox"
       >
-        <el-table-column prop="stu_id" label="学号" width="150">
-        </el-table-column>
-        <el-table-column prop="class" label="班级" width="150">
-        </el-table-column>
         <el-table-column prop="keyName" label="申请项" width="220">
         </el-table-column>
         <el-table-column prop="keyKind" label="申请项代号" width="180">
@@ -40,15 +36,7 @@
             </a>
           </template>
         </el-table-column>
-        <el-table-column label="操作" width="200">
-          <template slot-scope="scope">
-            <el-button type="success" size="mini" @click="agree(scope.row)">
-              同意
-            </el-button>
-            <el-button type="danger" size="mini" @click="refuse(scope.row)">
-              拒绝
-            </el-button>
-          </template>
+        <el-table-column prop="status" label="状态" width="200">
         </el-table-column>
       </el-table>
       <div class="pager">
@@ -65,17 +53,16 @@
 
 <script>
 export default {
-  name: 'examine',
+  name: 'examineCheck',
   data() {
     return {
       dialogVisible: false,
       form: {
-        stu_id: '',
-        class: '',
         keyName: '',
         keyKind: '',
         year: '',
-        content: ''
+        content: '',
+        status: ''
       },
       tableData: [],
       total: 0, //当前总条数
@@ -84,7 +71,7 @@ export default {
         limit: 10
       },
       userForm: {
-        stu_id: ''
+        keyName: ''
       }
     }
   },
@@ -97,46 +84,12 @@ export default {
       this.pageData.page = val
       this.dataGet()
     },
-    agree(row) {
-      this.axios
-        .post('http://127.0.0.1:8080/stu/examineAgree', row, {
-          headers: {
-            //传入登录账号对应的token字段
-            Authorization: window.localStorage.getItem('tToken'),
-            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-          }
-        })
-        .then((res) => {
-          this.$message({
-            type: res.data.status ? 'error' : 'success',
-            message: res.data.message
-          })
-          this.dataGet()
-        })
-    },
-    refuse(row) {
-      this.axios
-        .post('http://127.0.0.1:8080/stu/examineRefuse', row, {
-          headers: {
-            //传入登录账号对应的token字段
-            Authorization: window.localStorage.getItem('tToken'),
-            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-          }
-        })
-        .then((res) => {
-          this.$message({
-            type: res.data.status ? 'error' : 'success',
-            message: res.data.message
-          })
-          this.dataGet()
-        })
-    },
     dataGet() {
       this.axios
-        .get('http://127.0.0.1:8080/stu/getExamine', {
+        .get('http://127.0.0.1:8080/stu/examineCheck', {
           headers: {
             //传入登录账号对应的token字段
-            Authorization: window.localStorage.getItem('tToken'),
+            Authorization: window.localStorage.getItem('stutoken'),
             'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
           },
           params: { ...this.pageData, ...this.userForm }

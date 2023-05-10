@@ -57,6 +57,12 @@ export default {
           label: '信息修改',
           name: 'dataChange',
           icon: 's-order'
+        },
+        {
+          path: '/main/examineCheck',
+          label: '申请查询',
+          name: 'examineCheck',
+          icon: 'folder-checked'
         }
       ]
     }

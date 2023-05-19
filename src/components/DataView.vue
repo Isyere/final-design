@@ -166,7 +166,7 @@ export default {
   box-sizing: border-box;
   width: 90%;
   position: relative;
-  top: 50px;
+  top: 150px;
   left: 80px;
 }
 </style>

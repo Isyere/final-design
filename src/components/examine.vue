@@ -22,6 +22,8 @@
         :data="tableData"
         style="width: 90%"
         class="tableBox"
+        :header-cell-style="{ 'text-align': 'center' }"
+        :cell-style="{ 'text-align': 'center' }"
       >
         <el-table-column prop="stu_id" label="学号" width="150">
         </el-table-column>
@@ -33,7 +35,7 @@
         </el-table-column>
         <el-table-column prop="year" label="学年" width="100">
         </el-table-column>
-        <el-table-column prop="content" label="证明文件" width="500">
+        <el-table-column prop="content" label="证明文件" width="470">
           <template slot-scope="scope">
             <a :href="scope.row.content" target="_blank">
               {{ scope.row.content }}
@@ -160,6 +162,7 @@ export default {
 <style lang = 'less' scoped>
 .tmaBox {
   height: 90%;
+  width: 95%;
   .tmaBox-header {
     position: relative;
     left: 80px;

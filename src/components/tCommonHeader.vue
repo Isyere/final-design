@@ -48,15 +48,15 @@ export default {
     },
     handleCommand(path) {
       this.closeTagAll()
-      window.localStorage.removeItem('stutoken')
+      window.localStorage.removeItem('tToken')
       this.$router.push(path)
     },
     async getData() {
       await this.axios
-        .get('http://127.0.0.1:8080/stu/stuInfo', {
+        .get('http://127.0.0.1:8080/t/getAccountData', {
           headers: {
             //传入登录账号对应的token字段
-            Authorization: window.localStorage.getItem('stutoken')
+            Authorization: window.localStorage.getItem('tToken')
           }
         })
         .then((res) => {

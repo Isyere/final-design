@@ -8,7 +8,7 @@
     <el-container>
       <!-- 头部栏区域 -->
       <el-header>
-        <CommonHeader></CommonHeader>
+        <aCommonHeader></aCommonHeader>
       </el-header>
       <CommonTag></CommonTag>
       <el-main>
@@ -21,7 +21,7 @@
 
 <script>
 import aCommonAside from '@/components/aCommonAside'
-import CommonHeader from '@/components/CommonHeader'
+import aCommonHeader from '@/components/aCommonHeader'
 import CommonTag from '@/components/CommonTags.vue'
 
 export default {
@@ -33,7 +33,7 @@ export default {
   },
   components: {
     aCommonAside,
-    CommonHeader,
+    aCommonHeader,
     CommonTag
   },
   methods: {}

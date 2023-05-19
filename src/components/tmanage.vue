@@ -27,16 +27,16 @@
             <el-option label="女" value="女"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="用户名" prop="t_name">
+        <el-form-item label="账号" prop="t_name">
           <el-input
             clearable
-            placeholder="请输入用户名"
+            placeholder="请输入账号"
             v-model="form.t_name"
             v-show="modalType ? false : true"
           ></el-input>
           <el-input
             clearable
-            placeholder="请输入用户名"
+            placeholder="请输入账号"
             v-model="form.t_name"
             v-show="modalType ? true : false"
             :disabled="true"
@@ -92,6 +92,8 @@
         :data="tableData"
         style="width: 90%"
         class="tableBox"
+        :header-cell-style="{ 'text-align': 'center' }"
+        :cell-style="{ 'text-align': 'center' }"
       >
         <el-table-column prop="username" label="姓名" width="200">
         </el-table-column>
@@ -147,7 +149,7 @@ export default {
       },
       rules: {
         username: [{ required: true, message: '请输入姓名' }],
-        t_name: [{ required: true, message: '请输入用户名' }],
+        t_name: [{ required: true, message: '请输入账号' }],
         t_password: [{ required: true, message: '请输入密码' }],
         manageclassmin: [{ required: true, message: '请输入最小属班' }],
         manageclassmax: [{ required: true, message: '请输入最大属班' }],
@@ -180,7 +182,7 @@ export default {
       this.dialogVisible = true
     },
     handleDelete(row) {
-      this.$confirm('此操作将永久删除该条信息, 是否继续?', '提示', {
+      this.$confirm('此操作将永久删除该条数据, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
@@ -293,6 +295,7 @@ export default {
 <style lang = 'less' scoped>
 .tmaBox {
   height: 90%;
+  width: 95%;
   .tmaBox-header {
     position: relative;
     left: 80px;
@@ -305,6 +308,7 @@ export default {
     position: relative;
     top: 20px;
     left: 80px;
+    overflow: hidden;
     height: calc(100% - 62px);
     .pager {
       position: absolute;

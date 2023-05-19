@@ -20,7 +20,7 @@
     <div class="r-content">
       <el-dropdown @command="handleCommand">
         <span class="el-dropdown-link">
-          <img class="user" :src="picPath" :onerror="defaultImg" />
+          <img class="user" src="../pic/user.jpeg" />
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="/">退出</el-dropdown-item>
@@ -38,9 +38,6 @@ export default {
       picPath: ''
     }
   },
-  created() {
-    this.getData()
-  },
   methods: {
     ...mapMutations(['closeTagAll']),
     handleMenu() {
@@ -48,32 +45,14 @@ export default {
     },
     handleCommand(path) {
       this.closeTagAll()
-      window.localStorage.removeItem('stutoken')
+      window.localStorage.removeItem('admintoken')
       this.$router.push(path)
-    },
-    async getData() {
-      await this.axios
-        .get('http://127.0.0.1:8080/stu/stuInfo', {
-          headers: {
-            //传入登录账号对应的token字段
-            Authorization: window.localStorage.getItem('stutoken')
-          }
-        })
-        .then((res) => {
-          this.picPath = res.data.data[0].stu_pic
-        })
-        .catch((err) => {
-          console.log(err)
-        })
     }
   },
   computed: {
     ...mapState({
       tags: (state) => state.tab.tabsList
-    }),
-    defaultImg() {
-      return 'this.src="' + require('../pic/user.jpeg') + '"'
-    }
+    })
   }
 }
 </script>

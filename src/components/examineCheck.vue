@@ -22,21 +22,23 @@
         :data="tableData"
         style="width: 90%"
         class="tableBox"
+        :header-cell-style="{ 'text-align': 'center' }"
+        :cell-style="{ 'text-align': 'center' }"
       >
-        <el-table-column prop="keyName" label="申请项" width="220">
+        <el-table-column prop="keyName" label="申请项" width="270">
         </el-table-column>
         <el-table-column prop="keyKind" label="申请项代号" width="180">
         </el-table-column>
-        <el-table-column prop="year" label="学年" width="100">
+        <el-table-column prop="year" label="学年" width="150">
         </el-table-column>
-        <el-table-column prop="content" label="证明文件" width="500">
+        <el-table-column prop="content" label="证明文件" width="624">
           <template slot-scope="scope">
             <a :href="scope.row.content" target="_blank">
               {{ scope.row.content }}
             </a>
           </template>
         </el-table-column>
-        <el-table-column prop="status" label="状态" width="200">
+        <el-table-column prop="status" label="状态" width="247">
         </el-table-column>
       </el-table>
       <div class="pager">
@@ -113,6 +115,7 @@ export default {
 <style lang = 'less' scoped>
 .tmaBox {
   height: 90%;
+  width: 95%;
   .tmaBox-header {
     position: relative;
     left: 80px;

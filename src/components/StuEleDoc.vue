@@ -137,7 +137,7 @@ export default {
         .then((res) => {
           this.stuinfo = res.data.data[0]
           this.average =
-            (this.stuinfo.key_one +
+            ((this.stuinfo.key_one +
               this.stuinfo.key_two +
               this.stuinfo.key_three +
               this.stuinfo.key_four +
@@ -148,9 +148,10 @@ export default {
               this.stuinfo.key_nine +
               this.stuinfo.key_ten +
               this.stuinfo.key_eleven +
-              this.stuinfo.key_twelve +
-              (this.stuinfo.gpa / 5) * 100) /
-            13
+              this.stuinfo.key_twelve) /
+              12) *
+              0.6 +
+            (this.stuinfo.gpa / 5) * 100 * 0.4
         })
         .catch((err) => {
           console.log(err)

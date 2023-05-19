@@ -44,7 +44,7 @@ const routes = [
     children: [
       //默认子路由
       { path: '', component: examine },
-      { path: 'examine', name: 'examine', component: examine },
+      { path: 'examine', name: 'examine', component: examine }
     ]
   },
   {

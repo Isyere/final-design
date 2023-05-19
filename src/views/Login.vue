@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div class="login_form">
-      <p>学生综合素质管理系统</p>
+      <p>学生综合素质教育管理系统</p>
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="登录" name="first">
           <el-form :model="loginForm" :rules="rules" ref="loginForm">
@@ -132,7 +132,6 @@ export default {
                 }
               })
               .then((res) => {
-                console.log(res)
                 this.$message({
                   type: res.data.status ? 'error' : 'success',
                   message: res.data.message

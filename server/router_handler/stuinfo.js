@@ -281,13 +281,13 @@ exports.examineAgree = (req, res) => {
     if (err) {
       return res.cc(err)
     }
-    // const sql1 = `delete from tinfo where id = ?`
-    // connection.query(sql1, req.body.id, (err, results) => {
-    res.send({
-      status: 0,
-      message: '申请同意操作成功！',
-      data: results,
+    const sql1 = `delete from tinfo where id = ?`
+    connection.query(sql1, req.body.id, (err, results) => {
+      res.send({
+        status: 0,
+        message: '申请同意操作成功！',
+        data: results,
+      })
     })
   })
-  // })
 }

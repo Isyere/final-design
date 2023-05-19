@@ -95,7 +95,7 @@
       </el-col>
       <el-col :span="7"
         ><div class="grid-content">
-          学期：
+          学年：
           <el-select
             v-model="stuData.keyTerm"
             clearable

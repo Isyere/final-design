@@ -3,7 +3,7 @@
     <el-tag
       v-for="(item, index) in tags"
       :key="item.path"
-      :closable="item.name !== 'home'"
+      :closable="true"
       :effect="$route.name === item.name ? 'dark' : 'plain'"
       @click="changeMenu(item)"
       @close="handleClose(item, index)"

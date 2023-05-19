@@ -7,7 +7,7 @@
     active-text-color="#ffd04b"
     :collapse="isCollapse"
   >
-    <h3>{{ isCollapse ? '管理' : '学生综合信息管理系统' }}</h3>
+    <h3>{{ isCollapse ? '学生端' : '学生综合素质教育管理系统' }}</h3>
     <el-menu-item
       @click="clickMenu(item)"
       v-for="item in menuData"

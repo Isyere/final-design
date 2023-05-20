@@ -81,3 +81,26 @@ exports.getTInfoData = (req, res) => {
     })
   })
 }
+
+exports.imageStorage = (req, res) => {
+  const url = req.body.imageUrl
+  const sql = `update taccount set t_pic = ? where t_name = ?`
+  connection.query(sql, [url, req.user.t_name], (err, results) => {
+    if (err) return res.cc(err)
+    res.cc('头像修改成功！', 0)
+  })
+}
+
+exports.infoChange = (req, res) => {
+  if (!req.body.username) {
+    res.cc('姓名不能为空')
+  } else {
+    const sql = `update taccount set username = ? where t_name = ?`
+    console.log(req.user);
+    connection.query(sql, [req.body.username, req.user.t_name], (err, results) => {
+      if (err) return res.cc(err)
+      res.cc('姓名修改成功！', 0)
+    })
+  }
+
+}

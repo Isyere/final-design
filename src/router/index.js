@@ -16,6 +16,7 @@ import DataChange from '@/components/DataChange.vue'
 import DataView from '@/components/DataView.vue'
 import examineCheck from '@/components/examineCheck.vue'
 import tInfoData from '@/components/tInfoData.vue'
+import tDataChange from '@/components/tDataChange.vue'
 Vue.use(VueRouter)
 
 const originalPush = VueRouter.prototype.push
@@ -46,7 +47,8 @@ const routes = [
       //默认子路由
       { path: '', component: examine },
       { path: 'examine', name: 'examine', component: examine },
-      { path: 'tInfoData', name: 'tInfoData', component: tInfoData }
+      { path: 'tInfoData', name: 'tInfoData', component: tInfoData },
+      { path: 'tDataChange', name: 'tDataChange', component: tDataChange }
     ]
   },
   {

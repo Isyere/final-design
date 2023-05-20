@@ -45,6 +45,12 @@ export default {
           label: '审批',
           name: 'examine',
           icon: 's-order'
+        },
+        {
+          path: '/tmain/tDataChange',
+          label: '信息修改',
+          name: 'tDataChange',
+          icon: 's-order'
         }
       ]
     }

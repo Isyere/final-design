@@ -13,4 +13,8 @@ router.get('/getAccountData', router_handler_tinfo.getAccountData)
 
 router.get('/getTInfoData', router_handler_tinfo.getTInfoData)
 
+router.post('/imageStorage', router_handler_tinfo.imageStorage)
+
+router.post('/infoChange', router_handler_tinfo.infoChange)
+
 module.exports = router

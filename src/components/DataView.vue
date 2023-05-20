@@ -121,6 +121,25 @@ export default {
         })
         .then((res) => {
           for (let i = 0; i < 4; i++) {
+            if (res.data.data[i].key_one > 100) res.data.data[i].key_one = 100
+            if (res.data.data[i].key_two > 100) res.data.data[i].key_two = 100
+            if (res.data.data[i].key_three > 100)
+              res.data.data[i].key_three = 100
+            if (res.data.data[i].key_four > 100) res.data.data[i].key_four = 100
+            if (res.data.data[i].key_five > 100) res.data.data[i].key_five = 100
+            if (res.data.data[i].key_six > 100) res.data.data[i].key_six = 100
+            if (res.data.data[i].key_seven > 100)
+              res.data.data[i].key_seven = 100
+            if (res.data.data[i].key_eight > 100)
+              res.data.data[i].key_eight = 100
+            if (res.data.data[i].key_nine > 100) res.data.data[i].key_nine = 100
+            if (res.data.data[i].key_ten > 100) res.data.data[i].key_ten = 100
+            if (res.data.data[i].key_eleven > 100)
+              res.data.data[i].key_eleven = 100
+            if (res.data.data[i].key_twelve > 100)
+              res.data.data[i].key_twelve = 100
+          }
+          for (let i = 0; i < 4; i++) {
             this.option_column.series[i].data = [
               res.data.data[i].key_one,
               res.data.data[i].key_two,

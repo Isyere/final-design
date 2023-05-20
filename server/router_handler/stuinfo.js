@@ -274,19 +274,23 @@ exports.examineRefuse = (req, res) => {
 }
 
 exports.examineAgree = (req, res) => {
-
-  const sql = `update stuinfo set ${req.body.keyKind} = ${req.body.keyKind} + 25.0 where stu_id = ? and year = ?`
-  console.log(sql);
-  connection.query(sql, [req.body.username, req.body.keyTerm], (err, results) => {
+  const sql = `insert into examinecheck set ?`
+  connection.query(sql, { stu_id: req.body.stu_id, class: req.body.class, keyName: req.body.keyName, keyKind: req.body.keyKind, year: req.body.year, content: req.body.content, status: '申请已通过+25分' }, (err, results) => {
     if (err) {
       return res.cc(err)
     }
-    const sql1 = `delete from tinfo where id = ?`
-    connection.query(sql1, req.body.id, (err, results) => {
-      res.send({
-        status: 0,
-        message: '申请同意操作成功！',
-        data: results,
+    const sql1 = `update stuinfo set ${req.body.keyKind} = ${req.body.keyKind} + 25.0 where stu_id = ? and year = ?`
+    connection.query(sql1, [req.body.stu_id, req.body.year], (err, results) => {
+      if (err) {
+        return res.cc(err)
+      }
+      const sql2 = `delete from tinfo where id = ?`
+      connection.query(sql2, req.body.id, (err, results) => {
+        res.send({
+          status: 0,
+          message: '申请同意操作成功！',
+          data: results,
+        })
       })
     })
   })

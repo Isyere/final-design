@@ -35,6 +35,12 @@ export default {
       activeIndex: this.$route.name,
       menuData: [
         {
+          path: '/tmain/tInfoData',
+          label: '个人信息',
+          name: 'tInfoData',
+          icon: 's-custom'
+        },
+        {
           path: '/tmain/examine',
           label: '审批',
           name: 'examine',

@@ -53,14 +53,14 @@ export default {
     },
     async getData() {
       await this.axios
-        .get('http://127.0.0.1:8080/t/getAccountData', {
+        .get('http://127.0.0.1:8080/t/getTInfoData', {
           headers: {
             //传入登录账号对应的token字段
             Authorization: window.localStorage.getItem('tToken')
           }
         })
         .then((res) => {
-          this.picPath = res.data.data[0].stu_pic
+          this.picPath = res.data.data[0].t_pic
         })
         .catch((err) => {
           console.log(err)

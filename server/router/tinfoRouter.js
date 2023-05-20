@@ -11,4 +11,6 @@ router.post('/deleteTAccount', router_handler_tinfo.deleteTAccount)
 
 router.get('/getAccountData', router_handler_tinfo.getAccountData)
 
+router.get('/getTInfoData', router_handler_tinfo.getTInfoData)
+
 module.exports = router

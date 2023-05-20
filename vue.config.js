@@ -3,7 +3,6 @@ module.exports = defineConfig({
   transpileDependencies: true,
   // 配置devServer
   devServer: {
-    host: 'localhost', // 项目运行的ip
-    port: 8888, // 项目运行的端口号
+    port: 8800, // 项目运行的端口号
   }
 })

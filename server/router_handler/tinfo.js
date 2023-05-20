@@ -67,3 +67,17 @@ exports.deleteTAccount = (req, res) => {
     res.cc('删除成功！', 0)
   })
 }
+
+exports.getTInfoData = (req, res) => {
+  const sql = `select * from taccount where username = ?`
+  connection.query(sql, req.user.username, (err, results) => {
+    if (err) {
+      return res.cc(err)
+    }
+    res.send({
+      status: 0,
+      message: '获取辅导员账号信息成功！',
+      data: results,
+    })
+  })
+}

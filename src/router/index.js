@@ -15,6 +15,7 @@ import StuEleDoc from '@/components/StuEleDoc.vue'
 import DataChange from '@/components/DataChange.vue'
 import DataView from '@/components/DataView.vue'
 import examineCheck from '@/components/examineCheck.vue'
+import tInfoData from '@/components/tInfoData.vue'
 Vue.use(VueRouter)
 
 const originalPush = VueRouter.prototype.push
@@ -44,7 +45,8 @@ const routes = [
     children: [
       //默认子路由
       { path: '', component: examine },
-      { path: 'examine', name: 'examine', component: examine }
+      { path: 'examine', name: 'examine', component: examine },
+      { path: 'tInfoData', name: 'tInfoData', component: tInfoData }
     ]
   },
   {
@@ -69,7 +71,7 @@ router.beforeEach((to, from, next) => {
   // 判断该路由是否需要登录权限
   if (to.name != 'login') {
     // 该路由需要登录权限
-    if (localStorage.getItem('token')) {
+    if (localStorage.getItem('stutoken') || localStorage.getItem('tToken') || localStorage.getItem('admintoken')) {
       // 已登录
       next()
     } else {

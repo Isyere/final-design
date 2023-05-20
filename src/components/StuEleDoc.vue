@@ -136,7 +136,6 @@ export default {
         })
         .then((res) => {
           this.stuinfo = res.data.data[0]
-
           if (this.stuinfo.key_one > 100) this.stuinfo.key_one = 100
           if (this.stuinfo.key_two > 100) this.stuinfo.key_two = 100
           if (this.stuinfo.key_three > 100) this.stuinfo.key_three = 100
@@ -149,7 +148,6 @@ export default {
           if (this.stuinfo.key_ten > 100) this.stuinfo.key_ten = 100
           if (this.stuinfo.key_eleven > 100) this.stuinfo.key_eleven = 100
           if (this.stuinfo.key_twelve > 100) this.stuinfo.key_twelve = 100
-          console.log(this.stuinfo)
           this.average =
             ((this.stuinfo.key_one +
               this.stuinfo.key_two +

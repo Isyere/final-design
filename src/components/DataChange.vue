@@ -258,6 +258,9 @@ export default {
             type: res.data.status ? 'error' : 'success',
             message: res.data.message
           })
+          setTimeout(() => {
+            this.$router.go(0)
+          }, 1500)
         })
     },
     handleAvatarSuccess(res, file) {

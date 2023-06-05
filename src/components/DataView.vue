@@ -35,8 +35,14 @@ export default {
             '创新实践与核心素养',
             '工具使用与内涵建设'
           ],
+
           axisLabel: {
-            interval: 0
+            interval: 0,
+            textStyle: {
+              color: '#000',
+              fontSize: '13',
+              itemSize: ''
+            }
           }
         },
         yAxis: {},

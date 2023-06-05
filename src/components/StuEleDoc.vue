@@ -10,7 +10,7 @@
             <div>姓名：{{ stuinfo.stu_name }}</div>
             <div>学号：{{ stuinfo.stu_id }}</div>
             <div>班级：{{ stuinfo.stu_class }}</div>
-            <div>平均绩点：{{ stuinfo.gpa }}</div>
+            <div>平均绩点：{{ stuinfo.gpa | numFilter }}</div>
             <div class="redcolor">综合评分：{{ average | numFilter }}</div>
           </div>
         </el-col>

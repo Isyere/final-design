@@ -37,7 +37,7 @@
         <div class="grid-content">
           <span>
             班级：<el-input
-              placeholder="请输入班级"
+              placeholder="请输入班级(重新登录)"
               v-model="stuData.stu_class"
               clearable
             >
@@ -258,9 +258,13 @@ export default {
             type: res.data.status ? 'error' : 'success',
             message: res.data.message
           })
+          if (res.data.message.includes('班级修改成功')) {
+            window.localStorage.removeItem('admintoken')
+            this.$router.push('/')
+          }
           setTimeout(() => {
             this.$router.go(0)
-          }, 1500)
+          }, 500)
         })
     },
     handleAvatarSuccess(res, file) {

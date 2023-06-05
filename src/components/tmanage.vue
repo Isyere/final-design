@@ -281,6 +281,7 @@ export default {
     handleClose() {
       this.$refs['form'].resetFields()
       this.dialogVisible = false
+      this.form = ''
     },
     cancel() {
       this.handleClose()
